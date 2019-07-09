@@ -3,5 +3,6 @@
     <string-array name="Options">
         <item>List of UK police forces</item>
         <item>List of Crimes at a specific location</item>
+        <item>Favourites</item>
     </string-array>
 </resources>

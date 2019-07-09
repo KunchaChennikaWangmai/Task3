@@ -33,6 +33,8 @@ public class CrimeFragment extends Fragment {
     long[] ids;long bgt;String[] id;
     /*String[] persistentid,category;*/
     Double p,q;
+    String date;
+    data Data;
 
     public CrimeFragment() {
         // Required empty public constructor
@@ -48,10 +50,11 @@ public class CrimeFragment extends Fragment {
        if(bg!=null) {
            Double m = bg.getDouble("lat");
             Double n = bg.getDouble("lng");
+            date=String.valueOf(bg.getString("date"));
             p=m;q=n;
-
-           String t = m.toString();
+            String t = m.toString();
            String j = n.toString();
+          Data= new data(date,j);
            final Retrofit retrofit = new Retrofit.Builder().baseUrl("https://data.police.uk/api/").addConverterFactory(GsonConverterFactory.create()).build();
            RetrofitJson api = retrofit.create(RetrofitJson.class);
            Map<String, String> parameters = new HashMap<>();
@@ -115,4 +118,16 @@ public class CrimeFragment extends Fragment {
 
 
     }
+public  class data
+{
+    public String lng;
+    public String date;
+
+    public data(String m,String n) {
+        lng=String.valueOf(n);
+        date=String.valueOf(m);
+
+    }
+}
+
 }

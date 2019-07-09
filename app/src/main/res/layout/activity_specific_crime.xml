@@ -42,6 +42,9 @@
                 android:gravity="bottom|center"
                 android:text="View favorites"
                 tools:visibility="visible" />
+
+
+
         </RelativeLayout>
 
     </android.support.v4.widget.NestedScrollView>

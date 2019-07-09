@@ -1,16 +1,18 @@
 package com.chennikawangmai.tkthree;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -27,18 +29,22 @@ public class SpecificCrime extends AppCompatActivity  {
     String content;
     TextView Dsp;
     DataBaseHelper Db ;
-    Button b, v;
-    String idadd;
+    Button b,v;
+    String idadd,t;
     SQLiteDatabase database;
+    ListView listview;
+    ArrayList<String> listitem;
+    ArrayAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_specific_crime);
         b = (Button) findViewById(R.id.fav);
-        v = (Button) findViewById(R.id.add);
+        v=(Button)findViewById(R.id.addl);
         Dsp = (TextView) findViewById(R.id.textl);
-        Db = new DataBaseHelper(this);
+
+
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             Double m = bundle.getDouble("lat");
@@ -85,49 +91,53 @@ public class SpecificCrime extends AppCompatActivity  {
         } else {
             Dsp.setText("Bundle not sucessful");
         }
+        Db = new DataBaseHelper(this);
  b.setOnClickListener(new View.OnClickListener() {
      @Override
      public void onClick(View v) {
-         String id=idadd;
-         if(!(id.equals("")&&Db.insertData(id) ))
-         {
-             Toast.makeText(SpecificCrime.this,"Data added",Toast.LENGTH_SHORT).show();
-         }
-         else
-         {
-             Toast.makeText(SpecificCrime.this,"Data not added",Toast.LENGTH_SHORT).show();
+         String newEntry=String.valueOf(idadd);
+         if (idadd.length() != 0) {
+             AddData(newEntry);
+
+         } else {
+             toastMessage("You must put something in the text field!");
          }
      }
  });
 
-/*v.setOnClickListener(new View.OnClickListener() {
-    @Override
-    public void onClick(View v) {
-        viewData();
-    }
-});*/
 
-
-    }
-    public void viewData()
-    {
-        Cursor cursor=Db.viewData();
-        if(cursor.getCount()==0)
-        {
-            Toast.makeText(this,"No Data to show",Toast.LENGTH_SHORT).show();
-        }
-        else {
-            while (cursor.moveToNext())
-            {
-              String t=String.valueOf(cursor.getString(1));
-                Intent intent=new Intent(this,Favlist.class);
-                Bundle b=new Bundle();
-                b.putString("CrimeId",t);
-                intent.putExtras(b);
+        v.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(SpecificCrime.this, Favlist.class);
                 startActivity(intent);
             }
+        });
+
+
+
+    }
+
+
+    public void AddData(String newEntry) {
+        boolean insertData =Db.addData(newEntry);
+
+        if (insertData) {
+            toastMessage("Data Successfully Inserted!");
+        } else {
+            toastMessage("Something went wrong");
         }
     }
+
+    /**
+     * customizable toast
+     * @param message
+     */
+    private void toastMessage(String message){
+        Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
+    }
+
+
 
 }
 

@@ -9,8 +9,8 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 public class Crimelatlng extends AppCompatActivity {
-    public TextView txt1,txt2,txt4;
-    EditText txt3,txt5;
+    public TextView txt1,txt2,txt4,txt6;
+    EditText txt3,txt5,txt7;
     Button btn;
 
     public boolean isEmpty(EditText etText) {
@@ -31,7 +31,8 @@ public class Crimelatlng extends AppCompatActivity {
         txt4=(TextView)findViewById(R.id.txt4);
         txt3=(EditText) findViewById(R.id.txt3);
         txt5=(EditText) findViewById(R.id.txt5);
-
+        txt6=(TextView)findViewById(R.id.txt6);
+        txt7=(EditText)findViewById(R.id.txt7);
         btn=(Button)findViewById(R.id.btn);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -47,8 +48,10 @@ public class Crimelatlng extends AppCompatActivity {
         Bundle bundle=new Bundle();
         Double lat= Double.parseDouble(txt3.getText().toString());
         Double lng= Double.parseDouble(txt5.getText().toString());
+        String date=String.valueOf(txt7.getText().toString());
         bundle.putDouble("lat",lat);
         bundle.putDouble("lng",lng);
+        bundle.putString("date",date);
         intent.putExtras(bundle);
         startActivity(intent);
 

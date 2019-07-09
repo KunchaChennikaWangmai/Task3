@@ -31,9 +31,14 @@ public class MainActivity extends AppCompatActivity {
                     if(t.equals("List of UK police forces"))
                     { Intent intent = new Intent(MainActivity.this, ForcesList.class);
                     startActivity(intent);}
-                    else {
+                    else if(t.equals("List of Crimes at a specific location")) {
                     Intent intentl=new Intent(MainActivity.this,Crimelatlng.class);
                     startActivity(intentl);
+                    }
+                    else
+                    {Intent intentl=new Intent(MainActivity.this,Favlist.class);
+                        startActivity(intentl);
+
                     }
                 }
             });

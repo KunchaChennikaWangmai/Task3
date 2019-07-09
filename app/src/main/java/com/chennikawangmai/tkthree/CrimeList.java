@@ -9,6 +9,7 @@ import android.widget.Toast;
 public class CrimeList extends AppCompatActivity {
     public static FragmentManager fragmentManager;
     Double m,n;
+    String date;
 
 
     @Override
@@ -19,6 +20,7 @@ public class CrimeList extends AppCompatActivity {
 if(bundle!=null)
         { m=bundle.getDouble("lat");
             n=bundle.getDouble("lng");
+            date=String.valueOf(bundle.getString("date"));
             fragmentManager=getSupportFragmentManager();
         if(findViewById(R.id.contl)!=null) {
             if (savedInstanceState != null) {
@@ -27,6 +29,7 @@ if(bundle!=null)
             Bundle b = new Bundle();
             b.putDouble("lat", m);
             b.putDouble("lng", n);
+            b.putString("date",date);
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             CrimeFragment myFragment = new CrimeFragment();
             fragmentTransaction.add(R.id.contl, myFragment, null);
