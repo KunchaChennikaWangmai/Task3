@@ -31,6 +31,8 @@ public class SpecificCrime extends AppCompatActivity  {
     DataBaseHelper Db ;
     Button b,v;
     String idadd,t;
+    String date;
+    data Data;
     SQLiteDatabase database;
     ListView listview;
     ArrayList<String> listitem;
@@ -49,6 +51,8 @@ public class SpecificCrime extends AppCompatActivity  {
         if (bundle != null) {
             Double m = bundle.getDouble("lat");
             Double n = bundle.getDouble("lng");
+            date=String.valueOf(bundle.getString("date"));
+            Data= new data(m,n);
             final String id = bundle.getString("CrimeID");
             idadd = String.valueOf(id);
             final Long Id = Long.parseLong(id);
@@ -56,9 +60,12 @@ public class SpecificCrime extends AppCompatActivity  {
             String j = n.toString();
             final Retrofit retrofit = new Retrofit.Builder().baseUrl("https://data.police.uk/api/").addConverterFactory(GsonConverterFactory.create()).build();
             RetrofitJson api = retrofit.create(RetrofitJson.class);
-            Map<String, String> parameters = new HashMap<>();
-            parameters.put("lat", t);
-            parameters.put("lng", j);
+            Map<String, Object> parameters = new HashMap<>();
+
+            parameters.put("date",date);
+            parameters.put("lat", Data.t);
+            parameters.put("lng",Data.j);
+
             Call<List<Crime>> call = api.getcrimes(parameters);
             call.enqueue(new Callback<List<Crime>>() {
                 @Override
@@ -136,7 +143,20 @@ public class SpecificCrime extends AppCompatActivity  {
     private void toastMessage(String message){
         Toast.makeText(this,message, Toast.LENGTH_SHORT).show();
     }
+    public  class data
+    {
+        public Double lat;
+        public Double lng;
+        public String t,j;
 
+        public data(Double m,Double n) {
+            lng=n;
+            lat=m;
+            t = m.toString();
+            j = n.toString();
+
+        }
+    }
 
 
 }

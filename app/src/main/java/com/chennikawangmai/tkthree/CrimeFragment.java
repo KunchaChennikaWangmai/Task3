@@ -52,14 +52,16 @@ public class CrimeFragment extends Fragment {
             Double n = bg.getDouble("lng");
             date=String.valueOf(bg.getString("date"));
             p=m;q=n;
-            String t = m.toString();
-           String j = n.toString();
-          Data= new data(date,j);
+
+          Data= new data(m,n);
+
            final Retrofit retrofit = new Retrofit.Builder().baseUrl("https://data.police.uk/api/").addConverterFactory(GsonConverterFactory.create()).build();
            RetrofitJson api = retrofit.create(RetrofitJson.class);
-           Map<String, String> parameters = new HashMap<>();
-           parameters.put("lat", t);
-           parameters.put("lng", j);
+           Map<String, Object> parameters = new HashMap<>();
+           parameters.put("date",date);
+           parameters.put("lat", Data.t);
+           parameters.put("lng",Data.j);
+
            Call<List<Crime>> call = api.getcrimes(parameters);
            call.enqueue(new Callback<List<Crime>>() {
                @Override
@@ -85,6 +87,7 @@ public class CrimeFragment extends Fragment {
                            ble.putString("CrimeID", listView.getItemAtPosition(position).toString());
                            ble.putDouble("lat",p);
                            ble.putDouble("lng",q);
+                           ble.putString("date",date);
                            intent.putExtras(ble);
                            startActivity(intent);
 
@@ -120,12 +123,15 @@ public class CrimeFragment extends Fragment {
     }
 public  class data
 {
-    public String lng;
-    public String date;
+    public Double lat;
+    public Double lng;
+    public String t,j;
 
-    public data(String m,String n) {
-        lng=String.valueOf(n);
-        date=String.valueOf(m);
+    public data(Double m,Double n) {
+        lng=n;
+        lat=m;
+        t = m.toString();
+       j = n.toString();
 
     }
 }

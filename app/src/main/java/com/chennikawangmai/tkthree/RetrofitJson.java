@@ -13,6 +13,6 @@ public interface RetrofitJson {
     Call<Force> getForces(@Path("id") String Id);
     @GET("forces")
     Call<List<Forcelistforce>>getForcesList();
-    @GET("crimes-at-location?date=2017-02&")
-    Call<List<Crime>>getcrimes(@QueryMap Map<String,String> parameters);
+    @GET("crimes-at-location?")
+    Call<List<Crime>>getcrimes(@QueryMap Map<String,Object> parameters);
 }

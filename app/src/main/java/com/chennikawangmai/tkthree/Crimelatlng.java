@@ -48,7 +48,7 @@ public class Crimelatlng extends AppCompatActivity {
         Bundle bundle=new Bundle();
         Double lat= Double.parseDouble(txt3.getText().toString());
         Double lng= Double.parseDouble(txt5.getText().toString());
-        String date=String.valueOf(txt7.getText().toString());
+        String date=txt7.getText().toString();
         bundle.putDouble("lat",lat);
         bundle.putDouble("lng",lng);
         bundle.putString("date",date);
