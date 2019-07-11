@@ -5,11 +5,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.EditText;
 import android.widget.ListView;
 
 import java.util.List;
@@ -27,6 +30,8 @@ public class ForceFragment extends Fragment {
     private String[] forceName;
     SpecificForce activityClass;
 
+EditText editsearch;
+ArrayAdapter arrayAdapter;
     public ForceFragment() {
         // Required empty public constructor
     }
@@ -50,7 +55,7 @@ public class ForceFragment extends Fragment {
                 for (int i = 0; i < forces.size(); i++) {
                     forceName[i] = forces.get(i).getName();
                 }
-                ArrayAdapter arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, forceName);
+                 arrayAdapter = new ArrayAdapter<>(getContext(), android.R.layout.simple_list_item_1, forceName);
 
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
@@ -65,6 +70,32 @@ public class ForceFragment extends Fragment {
                     }
                 });
                 listView.setAdapter(arrayAdapter);
+
+                editsearch = getView().findViewById(R.id.search);
+                editsearch.addTextChangedListener(new TextWatcher() {
+
+                    @Override
+                    public void afterTextChanged(Editable arg0) {
+                        // TODO Auto-generated method stub
+
+                    }
+
+                    @Override
+                    public void beforeTextChanged(CharSequence arg0, int arg1,
+                                                  int arg2, int arg3) {
+                        // TODO Auto-generated method stub
+                    }
+
+                    @Override
+                    public void onTextChanged(CharSequence arg0, int arg1, int arg2,
+                                              int arg3) {
+                        // TODO Auto-generated method stub
+
+                        ForceFragment.this.arrayAdapter.getFilter().filter(arg0);
+                    }
+                });
+
+
             }
 
             @Override
@@ -72,7 +103,11 @@ public class ForceFragment extends Fragment {
 
             }
         });
+
+
+
     }
+
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -81,7 +116,8 @@ public class ForceFragment extends Fragment {
 
         return view;
 
-
-
     }
+
+
 }
+

@@ -12,7 +12,7 @@ public class Crimelatlng extends AppCompatActivity {
     public TextView txt1,txt2,txt4,txt6;
     EditText txt3,txt5,txt7;
     Button btn;
-
+    boolean a;boolean b;boolean c;
     public boolean isEmpty(EditText etText) {
         if (etText.getText().toString().trim().length() > 0)
             return true;
@@ -34,10 +34,15 @@ public class Crimelatlng extends AppCompatActivity {
         txt6=(TextView)findViewById(R.id.txt6);
         txt7=(EditText)findViewById(R.id.txt7);
         btn=(Button)findViewById(R.id.btn);
+        b=isEmpty(txt5);
+        a=isEmpty(txt3);
+        c=isEmpty(txt7);
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 openMain2Activity();
+
             }
         });
 
@@ -55,8 +60,6 @@ public class Crimelatlng extends AppCompatActivity {
         intent.putExtras(bundle);
         startActivity(intent);
 
-        /*intent.putExtra("lat","52.629729");
-        intent.putExtra("lng","-1.131592");
-        startActivity(intent);*/
+
     }
 }

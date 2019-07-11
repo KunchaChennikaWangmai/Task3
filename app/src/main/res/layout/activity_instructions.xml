@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Instructions">
+    <android.support.v4.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <TextView
+            android:id="@+id/inst"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="15sp"
+            android:textColor="#000"
+            android:text=" 'The List of UK police forces' option displays the list of police forces in UK, more details about a particular force are given when a particular force is selected in the list.
+The 'List of Crimes at a specific location ' option displays the list of crimes for a particular date (yyyy-mm) and at a particular location,more details about a particular crime are given when a particular crime id is selected in the list.
+The 'Favourites' option displays the list of crimes ids of crime which were added to favourites."/>
+
+
+    </android.support.v4.widget.NestedScrollView>
+
+
+</android.support.constraint.ConstraintLayout>

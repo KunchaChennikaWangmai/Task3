@@ -35,10 +35,14 @@ public class MainActivity extends AppCompatActivity {
                     Intent intentl=new Intent(MainActivity.this,Crimelatlng.class);
                     startActivity(intentl);
                     }
-                    else
+                    else if(t.equals("Favourites"))
                     {Intent intentl=new Intent(MainActivity.this,Favlist.class);
                         startActivity(intentl);
-
+                    }
+                    else
+                    {
+                        Intent intent=new Intent(MainActivity.this,Instructions.class);
+                        startActivity(intent);
                     }
                 }
             });

@@ -7,6 +7,9 @@ public class Crime {
     private String persistent_id;
     private String category;
     private long id;
+   public outcome_status outcomeStatus;
+
+
 
     public String getCategory() { return category; }
     public void setCategory(String category) { this.category = category; }

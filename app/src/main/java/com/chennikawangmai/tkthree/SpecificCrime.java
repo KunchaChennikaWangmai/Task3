@@ -31,12 +31,13 @@ public class SpecificCrime extends AppCompatActivity  {
     DataBaseHelper Db ;
     Button b,v;
     String idadd,t;
-    String date;
+  public String date;
     data Data;
     SQLiteDatabase database;
     ListView listview;
     ArrayList<String> listitem;
     ArrayAdapter adapter;
+    Double m,n;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +49,10 @@ public class SpecificCrime extends AppCompatActivity  {
 
 
         Bundle bundle = getIntent().getExtras();
+        final String da=new String(bundle.getString("date").toString());
         if (bundle != null) {
-            Double m = bundle.getDouble("lat");
-            Double n = bundle.getDouble("lng");
+             m = bundle.getDouble("lat");
+            n = bundle.getDouble("lng");
             date=String.valueOf(bundle.getString("date"));
             Data= new data(m,n);
             final String id = bundle.getString("CrimeID");
@@ -81,7 +83,9 @@ public class SpecificCrime extends AppCompatActivity  {
                             content = " ";
                             content += "ID:" + crimes.get(i).getId() + "\n";
                             content += "CATEGORY:" + crimes.get(i).getCategory() + "\n";
-
+                           // content+="OUTCOME STATUS"+"\n";
+                           // content+="CATEGORY"+crimes.get(i).outcomeStatus.getCategory()+"\n";
+                           // content+="DATE"+crimes.get(i).outcomeStatus.getDate();
                         }
 
                     }
@@ -117,6 +121,11 @@ public class SpecificCrime extends AppCompatActivity  {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(SpecificCrime.this, Favlist.class);
+                Bundle b=new Bundle();
+                b.putString("date",date);
+                b.putDouble("lat",m);
+                b.putDouble("lng",n);
+                intent.putExtras(b);
                 startActivity(intent);
             }
         });

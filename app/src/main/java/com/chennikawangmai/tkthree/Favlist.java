@@ -17,12 +17,20 @@ import java.util.ArrayList;
 public class Favlist extends AppCompatActivity {
    private ListView listview;
    DataBaseHelper Db ;
+   Double lat;Double lng;
    private static final String TAG = "Favlist";
+   String Id;
+   String date;
     @Override
     protected void onCreate( Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.viewlistcontents);
         listview = (ListView) findViewById(R.id.listlsc);
+        Bundle b=getIntent().getExtras();
+        if(b!=null)
+        {date=String.valueOf(b.getString("date"));
+         lat=b.getDouble("lat");
+         lng=b.getDouble("lng");}
        Db = new DataBaseHelper(this);
        populateListView();
 
@@ -47,23 +55,17 @@ public class Favlist extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                 String name = adapterView.getItemAtPosition(i).toString();
-                Log.d(TAG, "onItemClick: You Clicked on " + name);
 
-                Cursor data = Db.getItemID(name); //get the id associated with that name
-                String Id;
-                while(data.moveToNext()){
-                    Id = data.getString(1);
-                }
-                if(itemID > -1){
-                    Log.d(TAG, "onItemClick: The ID is: " + itemID);
-                    Intent editScreenIntent = new Intent(Favlist.this, EditDataActivity.class);
-                    editScreenIntent.putExtra("id",itemID);
-                    editScreenIntent.putExtra("name",name);
+                    Log.d(TAG, "onItemClick: The ID is: " + Id);
+                    Intent editScreenIntent = new Intent(Favlist.this, SpecificfavCrime.class);
+                    Bundle bh=new Bundle();
+                    bh.putDouble("lat",lat);
+                    bh.putDouble("lng",lng);
+                    bh.putString("date",date);
+                    bh.putString("id",listview.getItemAtPosition(i).toString());
+                    editScreenIntent.putExtras(bh);
                     startActivity(editScreenIntent);
-                }
-                else{
-                    toastMessage("No ID associated with that name");
-                }
+
             }
         });
 
